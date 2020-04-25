@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
   app:
-    image: jd/php:7.2-fpm
-    build:
-      context: "./docker/php"
-      dockerfile: Dockerfile
+    image: koinotice/pk
+    build: .
+    ports: 
+      - 10000:10000 
     volumes:
-      - "./src/:/var/www/html"
+      - "./src/:/pagekit"
     networks:
       - app
   web:
@@ -19,21 +19,7 @@ services:
       - app
     ports:
       - 80:2015
-  db:
-    image: mariadb:latest
-    volumes:
-      - "./docker/db/data:/var/lib/mysql"
-      - "./docker/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-    networks:
-      - app
-    env_file:
-      - ./docker/db/.env
-    ports:
-      - 3306:3306
-  composer:
-    image: composer:latest
-    volumes:
-      - "./src/:/app"
+   
 
 
 networks:

@@ -1,0 +1,8 @@
+foo.test {
+    log stdout
+
+    proxy / http://pagekit:10000 {
+        transparent
+        header_upstream Host  "foo.test"
+    }
+}

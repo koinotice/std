@@ -1,0 +1,25 @@
+version: '2'
+services:
+  pagekit:
+    restart: always
+    container_name: pagekit
+    image: koinotice/pagekit:latest
+#    build:
+#      context: .
+#    volumes:
+#      - ./pagekit:/pagekit
+    ports:
+    - 9999:10000
+
+  web:
+    image: stefanprodan/caddy:latest
+    volumes:
+      - "./Caddyfile:/etc/caddy/Caddyfile"
+      - "./src/:/var/www/html"
+
+    ports:
+      - 80:2015
+
+    depends_on:
+      - pagekit
+

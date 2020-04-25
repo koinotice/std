@@ -1,19 +1,8 @@
-stdicloud.com,www.stdicloud.com{
-    0.0.0.0
+stdicloud.com www.stdicloud.com {
+    log stdout
 
-    root /var/www/html
-
-    fastcgi / app:9000 php {
-        root /var/www/html
+    proxy / http://pagekit:10000 {
+        transparent
+        header_upstream Host  "stdicloud.com"
     }
-
-    rewrite {
-        regexp .*
-        ext /
-        to /index.php?{query}
-    }
-
-    gzip
-
-    tls off
 }
